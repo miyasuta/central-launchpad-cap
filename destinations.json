@@ -1,0 +1,19 @@
+{
+	"init_data": {
+		"subaccount": {
+			"existing_destinations_policy": "update",
+			"destinations": [
+				{
+					"Name": "catalog-service",
+					"Description": "CAP sample service",
+					"Authentication": "NoAuthentication",
+					"ProxyType": "Internet",
+					"Type": "HTTP",
+					"URL": "~{srv-api/srv-url}",
+                    "HTML5.DynamicDestination": true,
+                    "ForwardAuthToken": true
+				}
+			]
+		}
+	}
+}

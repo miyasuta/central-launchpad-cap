@@ -1,0 +1,146 @@
+## Generated mta.yaml based on template version 0.4.0
+## appName = cap-launchpad
+## language=nodejs; multiTenant=false
+## approuter=
+_schema-version: '3.1'
+ID: cap-launchpad
+version: 1.0.0
+description: "A simple CAP project."
+parameters:
+  enable-parallel-deployments: true
+   
+build-parameters:
+  before-all:
+   - builder: custom
+     commands:
+      - npm install --production
+      - npx -p @sap/cds-dk cds build --production
+
+modules:
+ - name: fiori-destination-content
+   type: com.sap.application.content
+   requires:
+   - name: uaa_fiori
+     parameters:
+       service-key:
+         name: uaa_fiori-key
+   - name: fiori_html_repo_host
+     parameters:
+       service-key:
+         name: fiori_html_repo_host-key
+   - name: fiori-destination-service
+     parameters:
+       content-target: true        
+   parameters:
+     content:
+       subaccount:
+         destinations:
+         - Name: my_service_fiori_html_repo_host
+           ServiceInstanceName: fiori-html5-app-host-service
+           ServiceKeyName: fiori_html_repo_host-key
+           sap.cloud.service: my_service
+         - Authentication: OAuth2UserTokenExchange
+           Name: my_service_uaa_fiori
+           ServiceInstanceName: fiori-xsuaa-service
+           ServiceKeyName: uaa_fiori-key
+           sap.cloud.service: my_service
+         existing_destinations_policy: update    
+   build-parameters:
+     no-source: true
+ - name: fiori_ui_deployer
+   type: com.sap.application.content
+   path: .
+   requires:
+   - name: fiori_html_repo_host
+     parameters:
+       content-target: true
+   build-parameters:
+     build-result: resources
+     requires:
+     - artifacts:
+       - fiori-content.zip
+       name: fiori
+       target-path: resources/
+ - name: fiori
+   type: html5
+   path: app/fiori
+   build-parameters:
+     builder: custom
+     commands:
+     - npm run build
+     supported-platforms: []              
+ # --------------------- SERVER MODULE ------------------------
+ - name: cap-launchpad-srv
+ # ------------------------------------------------------------
+   type: nodejs
+   path: gen/srv
+   requires:
+    # Resources extracted from CAP configuration
+    - name: cap-launchpad-db
+   provides:
+    - name: srv-api      # required by consumers of CAP services (e.g. approuter)
+      properties:
+        srv-url: ${default-url}
+
+ # -------------------- SIDECAR MODULE ------------------------
+ - name: cap-launchpad-db-deployer
+ # ------------------------------------------------------------
+   type: hdb
+   path: gen/db  
+   parameters:
+     buildpack: nodejs_buildpack
+   requires:
+    # 'hana' and 'xsuaa' resources extracted from CAP configuration
+    - name: cap-launchpad-db
+
+
+resources:
+ # services extracted from CAP configuration
+ # 'service-plan' can be configured via 'cds.requires.<name>.vcap.plan'
+# ------------------------------------------------------------
+ - name: cap-launchpad-db
+# ------------------------------------------------------------
+   type: com.sap.xs.hdi-container
+   parameters:
+     service: hana  # or 'hanatrial' on trial landscapes
+     service-plan: hdi-shared
+   properties:
+     hdi-service-name: ${service-name}
+
+ - name: fiori-destination-service
+   type: org.cloudfoundry.managed-service
+   requires:
+     - name: srv-api
+   parameters:
+     service: destination
+     service-name: fiori-destination-service
+     service-plan: lite
+     init_data:
+       subaccount:
+         existing_destinations_policy: update
+         destinations:
+           - Name: cap-launchpad
+             Description: CAP sample service
+             Authentication: NoAuthentication
+             ProxyType: Internet
+             Type: HTTP
+             URL: ~{srv-api/srv-url}
+             HTML5.DynamicDestination: true
+             ForwardAuthToken: true
+       
+ - name: fiori_html_repo_host
+   type: org.cloudfoundry.managed-service
+   parameters:
+     service: html5-apps-repo
+     service-name: fiori-html5-app-host-service
+     service-plan: app-host
+ - name: uaa_fiori
+   type: org.cloudfoundry.managed-service
+   parameters:
+     path: ./xs-security.json
+     service: xsuaa
+     service-name: fiori-xsuaa-service
+     service-plan: application
+
+
+
