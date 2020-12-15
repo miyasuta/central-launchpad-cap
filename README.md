@@ -1,3 +1,7 @@
+# About branches
+master: This branch is for deploying to SAP HANA Cloud
+hana-service: This branch is for deploying to SAP HANA Service (Trial)
+
 # Getting Started
 
 Welcome to your new project.
