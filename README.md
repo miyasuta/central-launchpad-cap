@@ -1,8 +1,9 @@
 # About branches
 
+Branch | Purpose
 ---------|----------
-master | This branch is for deploying to SAP HANA Cloud
-hana-service | This branch is for deploying to SAP HANA Service (Trial)
+master | For deploying to SAP HANA Cloud
+hana-service | For deploying to SAP HANA Service (Trial)
 
 # Getting Started
 
