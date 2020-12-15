@@ -102,7 +102,7 @@ resources:
 # ------------------------------------------------------------
    type: com.sap.xs.hdi-container
    parameters:
-     service: hana  # or 'hanatrial' on trial landscapes
+     service: hanatrial  # or 'hanatrial' on trial landscapes
      service-plan: hdi-shared
    properties:
      hdi-service-name: ${service-name}
@@ -115,18 +115,19 @@ resources:
      service: destination
      service-name: fiori-destination-service
      service-plan: lite
-     init_data:
-       subaccount:
-         existing_destinations_policy: update
-         destinations:
-           - Name: cap-launchpad
-             Description: CAP sample service
-             Authentication: NoAuthentication
-             ProxyType: Internet
-             Type: HTTP
-             URL: ~{srv-api/srv-url}
-             HTML5.DynamicDestination: true
-             ForwardAuthToken: true
+     config:
+       init_data:
+         subaccount:
+           existing_destinations_policy: update
+           destinations:
+             - Name: cap-launchpad
+               Description: CAP sample service
+               Authentication: NoAuthentication
+               ProxyType: Internet
+               Type: HTTP
+               URL: ~{srv-api/srv-url}
+               HTML5.DynamicDestination: true
+               ForwardAuthToken: true
        
  - name: fiori_html_repo_host
    type: org.cloudfoundry.managed-service
