@@ -74,6 +74,9 @@ modules:
  # ------------------------------------------------------------
    type: nodejs
    path: gen/srv
+   parameters:
+     memory: 256M
+     disk-quota: 1024M
    requires:
     # Resources extracted from CAP configuration
     - name: cap-launchpad-db
