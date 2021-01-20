@@ -7,8 +7,11 @@
     "private": true,
     "dependencies": {
         "@sap/cds": "^4",
+        "@sap/hana-client": "^2.4.177",
+        "@sap/xsenv": "^3.1.0",
+        "@sap/xssec": "^3.0.10",
         "express": "^4",
-        "@sap/hana-client": "^2.4.177"
+        "passport": "^0.4.1"
     },
     "devDependencies": {
         "@sap/ux-specification": "^1.84.0",
@@ -24,6 +27,9 @@
         "requires": {
             "db": {
                 "kind": "sql"
+            },
+            "uaa": {
+                "kind": "xsuaa"
             }
         }
     }

@@ -1,1 +1,16 @@
-{}
+{
+	"auth": {
+		"passport": {
+			"strategy": "mock",
+			"users": {
+				"jhodel": {
+					"password": "1234",
+					"ID": "mio.f.yasutake@gmail.com",
+					"roles": [
+						"authenticated-user"
+					]
+				}
+			}
+		}
+	}
+}

@@ -4,11 +4,11 @@
             "name": "../../demo/fiori/manifest.json"
         },
         {
-            "name": "../../demo/fiori/Component.js"
-        },
-        {
             "name": "../../demo/fiori/i18n/i18n.properties",
             "raw": "i18n/i18n.properties"
+        },
+        {
+            "name": "../../demo/fiori/Component.js"
         },
         {
             "name": "../../demo/fiori/manifest-bundle.zip"

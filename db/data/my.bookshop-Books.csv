@@ -1,3 +1,3 @@
-ID;title;stock
-1;Wuthering Heights;100
-2;Jane Eyre;500
+ID;title;stock;createdBy
+1;Wuthering Heights;100;mio.f.yasutake@gmail.com
+2;Jane Eyre;500;mio.fujita.01@gmail.com
