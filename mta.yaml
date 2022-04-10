@@ -67,6 +67,7 @@ modules:
    build-parameters:
      builder: custom
      commands:
+     - npm install
      - npm run build
      supported-platforms: []              
  # --------------------- SERVER MODULE ------------------------
@@ -80,6 +81,7 @@ modules:
    requires:
     # Resources extracted from CAP configuration
     - name: cap-launchpad-db
+    - name: uaa_fiori
    provides:
     - name: srv-api      # required by consumers of CAP services (e.g. approuter)
       properties:
@@ -95,6 +97,7 @@ modules:
    requires:
     # 'hana' and 'xsuaa' resources extracted from CAP configuration
     - name: cap-launchpad-db
+    - name: uaa_fiori
 
 
 resources:
