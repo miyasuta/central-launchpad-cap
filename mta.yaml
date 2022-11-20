@@ -71,8 +71,8 @@ modules:
           ServiceInstanceName: html_repo_host
           ServiceKeyName: html_repo_host-key
           sap.cloud.service: poc
-        - Authentication: OAuth2UserTokenExchange
-          Name: uaa
+        - Name: uaa
+          Authentication: OAuth2UserTokenExchange          
           ServiceInstanceName: uaa
           ServiceKeyName: uaa-key
           sap.cloud.service: poc
@@ -113,22 +113,25 @@ resources:
       init_data:
         instance:
           destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
+          - Name: ui5
+            Authentication: NoAuthentication           
             ProxyType: Internet
             Type: HTTP
             URL: https://ui5.sap.com
           existing_destinations_policy: update
         subaccount:
           destinations:
-          - Authentication: NoAuthentication
-            Description: CAP sample service
+          - Name: poc-srv
+            Authentication: NoAuthentication
             ForwardAuthToken: true
             HTML5.DynamicDestination: true
-            Name: cap-launchpad
             ProxyType: Internet
             Type: HTTP
             URL: ~{srv-api/srv-url}
+          - Name: workflow
+            Authentication: OAuth2JWTBearer
+            ServiceInstanceName: workflow-service
+            ServiceKeyName: workflow-service-key
           existing_destinations_policy: update
     service: destination
     service-plan: lite

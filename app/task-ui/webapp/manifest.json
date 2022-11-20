@@ -8,24 +8,7 @@
             "version": "0.0.1"
         },
         "title": "{{appTitle}}",
-        "description": "{{appDescription}}",
-        "resources": "resources.json",
-        "sourceTemplate": {
-            "id": "@sap/generator-fiori:basic",
-            "version": "1.8.1",
-            "toolsId": "08ac2e53-39be-4e38-9ae1-e063b664b2ec"
-        },
-        "dataSources": {
-            "mainService": {
-                "uri": "/sap/opu/odata/",
-                "type": "OData",
-                "settings": {
-                    "annotations": [],
-                    "localUri": "localService/metadata.xml",
-                    "odataVersion": "2.0"
-                }
-            }
-        }
+        "description": "{{appDescription}}"
     },
     "sap.ui": {
         "technology": "UI5",
@@ -68,19 +51,7 @@
                 "settings": {
                     "bundleName": "taskUi.i18n.i18n"
                 }
-            },
-            "": {
-                "dataSource": "mainService",
-                "preload": true,
-                "settings": {}
             }
-        },
-        "resources": {
-            "css": [
-                {
-                    "uri": "css/style.css"
-                }
-            ]
         },
         "routing": {
             "config": {
