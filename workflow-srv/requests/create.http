@@ -1,0 +1,14 @@
+#Update Workflow Structure
+POST http://localhost:4004/workflow/Header
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic b3BlcmF0b3I6UHJvdmlkZWRUZXN0ZXJDaGVjazEyMyE=
+
+{
+  "name": "Test",
+  "items": [
+    {
+      "name": "Name1"
+    }
+  ]
+}

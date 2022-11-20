@@ -1,0 +1,9 @@
+#Complete Worfklow
+POST http://localhost:4004/workflow/Header(47147ef9-0c1f-49d5-9a32-82100ef65c83)/WorkflowService.complete
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic b3BlcmF0b3I6UHJvdmlkZWRUZXN0ZXJDaGVjazEyMyE=
+
+{
+  "resolution": "completed"
+}
